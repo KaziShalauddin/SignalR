@@ -1,0 +1,8 @@
+
+> Install-Package jQuery.UI.Combined
+
+> Install-Package Microsoft.Owin
+
+> Install-Package Microsoft.Owin.Security
+
+> Install-Package Microsoft.Owin.Host.SystemWeb
