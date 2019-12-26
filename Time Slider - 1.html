@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="ui-mobile">
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+  /* EXAMPLE 2a */
+  .sliderTickmarks{
+      -webkit-box-sizing: border-box; 
+      box-sizing: border-box;
+      height: 100%;
+      width: 25%;    
+      float: left;
+      border-right: 1px solid #888;
+  }
+  .sliderTickmarks span{
+      position: relative;
+      left: 100%;
+      top: -135%;
+      margin-left: -16px;
+      font-size: 12px;
+      font-weight: normal;
+      white-space: nowrap;
+  }
+  .ui-slider-track > div.sliderTickmarks:first-child{
+      border-right: 0;
+      width: 0;
+  }
+  .ui-slider-track > div.sliderTickmarks:first-child span{
+      margin-left: -5px;
+  }
+  .ui-slider-track > div.sliderTickmarks:last-of-type{
+       border-right: 0;
+  }
+  </style>
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+  </head>
+  <body >
+  
+      <input type="number" data-type="range" name="theSlider2a" id="theSlider2" min="0" max="100" value="60" class="ui-shadow-inset ui-body-inherit ui-corner-all ui-slider-input"><div role="application" class="ui-slider-track ui-shadow-inset ui-bar-inherit ui-corner-all">
+          <div class="sliderTickmarks "><span>volume off</span></div>
+          <div class="sliderTickmarks "><span>Quiet</span></div>
+          <div class="sliderTickmarks "><span>Normal</span></div>
+          <div class="sliderTickmarks "><span>Loud</span></div>
+          <div class="sliderTickmarks "><span>Max</span></div>
+  <!-- <div id="cont" role="main" class="ui-content">
+  <div id="example2a" class="example">
+  <label for="theSlider2a">Slider with Tick marks:</label>
+  <div class="ui-slider"> -->
+    
+      <!-- <a href="#" class="ui-slider-handle ui-btn ui-shadow" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0" title="0" aria-labelledby="theSlider2-label" style="left: 0%;"></a> -->
+    <!-- </div> -->
+    <!-- </div> -->
+  <!-- </div>
+  </div> -->
+
+  <script>
+  $(document).ready("pagecreate", "#page1", function () {
+    //EXAMPLE 2a - add tick marks to slider track    
+    var ticks = '<div class="sliderTickmarks "><span>volume off</span></div>';
+    ticks += '<div class="sliderTickmarks "><span>Quiet</span></div>';
+    ticks += '<div class="sliderTickmarks "><span>Normal</span></div>';
+    ticks += '<div class="sliderTickmarks "><span>Loud</span></div>';
+    ticks += '<div class="sliderTickmarks "><span>Max</span></div>';
+  
+    $("#example2a .ui-slider-track").prepend(ticks);
+  });
+  //# sourceURL=pen.js
+      </script>
+  
+  
+  

@@ -2,6 +2,9 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 /* .slidecontainer {
   width: 100%;
@@ -49,10 +52,45 @@
 <p>Drag the slider to display the current value.</p>
 
 <div>
-  <input type="range" min="2010" max="2020" class="slider"   id="myRange">
+  <input type="range" min="2010" max="2020" class="slider"  list="rangeList"   id="myRange">
+    <datalist id="rangeList">
+    <option value="2010" label="0%">2010</option>
+    <option value="2011"></option>
+    <option value="2012"></option>
+    <option value="2013"></option>
+    <option value="2014" ></option>
+    <option value="2015" label="50%">2015</option>
+    <option value="2016"></option>
+    <option value="2017"></option>
+    <option value="2018"></option>
+    <option value="2019"></option>
+    <option value="2020" label="100%">2020</option>
+  </datalist>
   <p>Value: <span id="demo"></span></p>
 </div>
+<input type="range" list="tickmarks">
 
+<datalist id="tickmarks">
+  <option value="0" label="0%"></option>
+  <option value="10"></option>
+  <option value="20"></option>
+  <option value="30"></option>
+  <option value="40"></option>
+  <option value="50" label="50%"></option>
+  <option value="60"></option>
+  <option value="70"></option>
+  <option value="80"></option>
+  <option value="90"></option>
+  <option value="100" label="100%"></option>
+</datalist>
+<div>
+  <p id="monday">
+    <label for="amountmonday">Hours of sleep:</label>
+    <input type="text" id="amountmonday">
+  </p>
+  
+  <input type="range"  id="slidermonday">
+</div>
 <script>
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
@@ -62,6 +100,33 @@ slider.oninput = function() {
   output.innerHTML = this.value;
 }
 </script>
+<script>
+  var amountmonday = $('#amountmonday');
+var slidermonday = $('#slidermonday');
+slidermonday.slider({
+  range: true,
+  min: 0,
+  max: 24,
+  values: [12, 18],
+  create: function() {
+    var max = $(this).slider('values', 1);
+    var min = $(this).slider('values', 0);
+    amountmonday.val(max - min);
+  },
+  slide: function Total(event, ui) {
+    debugger;
+    amountmonday.val(ui.values[1] - ui.values[0]);
+  }
 
+});
+</script>
 </body>
 </html>
+
+
+
+<!-- https://codepen.io/trevanhetzel/pen/rOVrGK -->
+
+<!-- https://codepen.io/ezanker/pen/VmGMVz -->
+
+<!-- https://stackoverflow.com/questions/41092779/custom-jquery-mobile-slider-labels -->

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script
+  src="https://code.jquery.com/jquery-2.2.4.js"
+  integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+  crossorigin="anonymous"></script>
+
+<style>
+    .sliderTickmarks{
+      -webkit-box-sizing: border-box; 
+      box-sizing: border-box;
+      height: 100%;
+      width: 25%;    
+      float: left;
+      border-right: 1px solid #888;
+  }
+  .sliderTickmarks span{
+      position: relative;
+      left: 100%;
+      top: -135%;
+      margin-left: -16px;
+      font-size: 12px;
+      font-weight: normal;
+      white-space: nowrap;
+  }
+  .ui-slider-track > div.sliderTickmarks:first-child{
+      border-right: 0;
+      width: 0;
+  }
+  .ui-slider-track > div.sliderTickmarks:first-child span{
+      margin-left: -5px;
+  }
+  .ui-slider-track > div.sliderTickmarks:last-of-type{
+       border-right: 0;
+  }
+/* .form {
+    max-width: 50%;
+    min-width: 30%;
+    border-width: 4px;
+    border-color: #CCCCCC;
+    border-radius: 8px;
+    color: #222222;
+    font-size: 17px;
+    margin: 0px;
+    background-color: #FFFFFF;
+    padding: 20px;
+}
+.section0 {
+    padding: 2px;
+}
+.section2 {
+    font-size: 9px;
+    padding: 3px;
+}
+.rofl {
+    margin: auto;
+    align: center;
+    width: 80%;
+}
+.form label {
+    color: #222222;
+    font-size: 11px;
+    font-family:'europa', Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: block;
+    margin-bottom: auto;
+}
+.form input[type=radio], input[type=checkbox] {
+    margin: 10px;
+    width: 13px;
+}
+.form div {
+    display: block;
+}
+.form input, form textarea, form select {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #666666;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100%;
+}
+.form h1 {
+    font-size: 40px;
+    color: #289fcf;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+.jaja {
+    margin-bottom: 11px;
+}
+.coz {
+    coz: both;
+}
+.form textarea {
+    height: 10px;
+    width: 100%;
+}
+.form input[type=submit] {
+    width: 44%;
+    background-color: #CCCCCC;
+    color: #222222;
+}
+.field {
+    margin-bottom: 3px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+}
+.priceform {
+    width: auto;
+    max-width: 270px;
+    min-width: 200px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+.priceform p {
+    font-size: 19px;
+    font-family: europa, lucida sans;
+    padding: 4px;
+    border-radius: 4px;
+}
+.sortable {
+    width: 100%;
+    margin-left: 0px;
+} */
+.range-slider .input-range {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background: #ccc;
+    outline: none;
+}
+.range-slider .input-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #353535;
+    cursor: pointer;
+    -webkit-transition: background .15s ease-in-out;
+    transition: background .15s ease-in-out;
+}
+.range-slider .input-range::-webkit-slider-thumb:hover {
+    background: #e06161;
+}
+.range-slider .input-range:active::-webkit-slider-thumb {
+    background: #e06161;
+}
+.range-slider .input-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: #353535;
+    cursor: pointer;
+    -webkit-transition: background .15s ease-in-out;
+    transition: background .15s ease-in-out;
+}
+.range-slider .input-range::-moz-range-thumb:hover {
+    background: #e06161;
+}
+.range-slider .input-range:active::-moz-range-thumb {
+    background: #e06161;
+}
+.range-value {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 3px;
+    background: #353535;
+    padding: 5px 10px;
+    margin-left: 7px;
+    margin-bottom: 5px;
+}
+.range-value:after {
+    position: absolute;
+    top: 8px;
+    left: -7px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-right: 7px solid #353535;
+    border-bottom: 7px solid transparent;
+}
+.range-number {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    color: #fff;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 3px;
+    background: #353535;
+    padding: 5px 10px;
+    margin-left: 7px;
+    margin-bottom: 5px;
+}
+.range-number:after {
+    position: absolute;
+    top: 8px;
+    left: -7px;
+    width: 0;
+    height: 0;
+    border-top: 7px solid transparent;
+    border-right: 7px solid #353535;
+    border-bottom: 7px solid transparent;
+}
+::-moz-range-track {
+    background: #ccc;
+    border: 0;
+}
+input::-moz-focus-inner {
+    border: 0;
+}
+</style>
+</head>
+<body>
+    
+        <h1>Get Started</h1>
+        <div class="field">
+            <label for="Players">Players</label>
+        </div>
+        <div class="range-slider">
+            <input class="input-range" type="range" value="1" min="0" max="10"> <span class="range-value">1</span>
+
+        </div>
+      
+  
+
+
+
+<script>
+     $(document).ready(function () {
+    //EXAMPLE 2a - add tick marks to slider track    
+    var ticks = '<div class="sliderTickmarks "><span>volume off</span></div>';
+    ticks += '<div class="sliderTickmarks "><span>Quiet</span></div>';
+    ticks += '<div class="sliderTickmarks "><span>Normal</span></div>';
+    ticks += '<div class="sliderTickmarks "><span>Loud</span></div>';
+    ticks += '<div class="sliderTickmarks "><span>Max</span></div>';
+  
+    $(".range-slider").prepend(ticks);
+  });
+ $('.input-range').on('input', function () {
+    $(this).next('.range-value').html(this.value);
+});
+</script>
+</body>
+</html>
+
