@@ -15,7 +15,7 @@
  */
 
 
-jQuery.fn.customSlider = function(settings){
+jQuery.fn.selectToUISlider = function(settings){
 	var selects = jQuery(this);
 	
 	//accessible slider options

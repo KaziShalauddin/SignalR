@@ -8494,6 +8494,7 @@ $.widget( "mobile.textinput", {
 })( jQuery );
 
 (function( $, undefined ) {
+	debugger;
 
 $.widget( "mobile.slider", $.extend( {
 	initSelector: "input[type='range'], :jqmData(type='range'), :jqmData(role='slider')",
