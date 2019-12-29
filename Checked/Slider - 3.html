@@ -1,0 +1,121 @@
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Slider - 3</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.20/themes/base/jquery-ui.css" type="text/css" media="all"> -->
+    <!-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="/css/normalize.css">
+      <script type="text/javascript" src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>   
+       <link rel="stylesheet" type="text/css" href="/css/result-light.css"> -->
+  
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+       <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style id="compiled-css" type="text/css">
+        
+    </style>
+  <style>
+    #slider2{width: 800px;}
+    .steps-2 {
+    border: 1px solid transparent; /*follows #slider2 style for sizing purposes */
+    width: 800px; 
+    position: relative; 
+    height: 30px;
+    }
+    .tick { 
+        border: 1px solid transparent; /*follows slide handle style for sizing purposes*/
+        position: absolute;
+        width: 1.2em;
+        margin-left: -.6em;
+        text-align:center;
+        left: 0;
+    }
+    </style>
+  
+    <!-- TODO: Missing CoffeeScript 2 -->
+  
+    <script type="text/javascript">//<![CDATA[
+  
+      $(window).load(function(){
+        
+      $(function() {
+          $( "#slider" ).slider({
+              value:100,
+              min: 0,
+              max: 500,
+              step: 100,
+              slide: function( event, ui ) {
+                  $( "#amount" ).val( "$" + ui.value );
+              }
+          });
+          $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+  
+          $( "#slider2" ).slider({
+              value:100,
+              min: 0,
+              max: 500,
+              step: 100,
+              slide: function( event, ui ) {
+                  $( "#amount2" ).val( "$" + ui.value );
+              }
+          });
+          $( "#amount2" ).val( "$" + $( "#slider2" ).slider( "value" ) );
+      });
+  
+  
+      });
+  
+    //]]></script>
+  
+  </head>
+  <body style="background: #EEEEEE; color: #333333; font-size: 11px;">
+      
+      
+      
+  
+          <div style="width:808px;display:block;margin:200px auto;">
+              <p>
+                  <label for="amount">Donation amount ($100 increments):</label>
+                  <input type="text" id="amount2" style="border: 0 none;border-radius: 4px 4px 4px 4px;color: #F6931F;padding-left: 5px;width: 40px;">
+              </p>
+              <!-- <div id="slider2" style="width:800px;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a class="ui-slider-handle ui-state-default ui-corner-all" href="http://codefusionlab.com/slider_steps2.html#" style="left: 20%;"></a></div> -->
+
+              <div id="slider2" style="width:800px;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
+  
+              <div class="steps-2">
+                  <span class="tick">|<br>$0</span>
+                  <span class="tick" style="left: 20%;">|<br>$100</span>
+                  <span class="tick" style="left: 40%;">|<br>$200</span>
+                  <span class="tick" style="left: 60%;">|<br>$300</span>
+                  <span class="tick" style="left: 80%;">|<br>$400</span>
+                  <span class="tick" style="left: 100%;">|<br>$500</span>
+              </div>
+  
+              <p>The trick is to follow the slider &amp; handle's styling, particularly the borders &amp; absolute positioning .</p>
+  
+          </div>
+  
+  
+    
+    <!-- <script>
+      // tell the embed parent frame the height of the content
+      if (window.parent && window.parent.parent){
+        window.parent.parent.postMessage(["resultsFrame", {
+          height: document.body.getBoundingClientRect().height,
+          slug: "7D9Uu"
+        }], "*")
+      }
+  
+      // always overwrite window.name, in case users try to set it manually
+      window.name = "result"
+    </script> -->
+  
+  
+  </body></html>

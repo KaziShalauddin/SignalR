@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>jSlider</title>
+
+    <!-- bin/jquery.slider.min.css -->
+    <link rel="stylesheet" href="css/jslider.css" type="text/css" />
+    <link rel="stylesheet" href="css/jslider.blue.css" type="text/css" />
+    <link rel="stylesheet" href="css/jslider.plastic.css" type="text/css" />
+    <link rel="stylesheet" href="css/jslider.round.css" type="text/css" />
+    <link rel="stylesheet" href="css/jslider.round.plastic.css" type="text/css" />
+    <!-- end -->
+
+    <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
+
+    <!-- bin/jquery.slider.min.js -->
+    <script type="text/javascript" src="js/jshashtable-2.1_src.js"></script>
+    <script type="text/javascript" src="js/jquery.numberformatter-1.2.3.js"></script>
+    <script type="text/javascript" src="js/tmpl.js"></script>
+    <script type="text/javascript" src="js/jquery.dependClass-0.1.js"></script>
+    <script type="text/javascript" src="js/draggable-0.1.js"></script>
+    <script type="text/javascript" src="js/jquery.slider.js"></script>
+    <!-- end -->
+
+    <style type="text/css" media="screen">
+        body {
+            background: #EEF0F7;
+        }
+
+        .layout {
+            padding: 50px;
+            font-family: Georgia, serif;
+        }
+
+        .layout-slider {
+            margin-bottom: 60px;
+            width: 50%;
+        }
+
+        .layout-slider-settings {
+            font-size: 12px;
+            padding-bottom: 10px;
+        }
+
+            .layout-slider-settings pre {
+                font-family: Courier;
+            }
+    </style>
+
+</head>
+<body>
+
+    <div class="layout">
+
+    <!-- <div class="layout-slider" style="width: 100%">
+        Slider <span style="display: inline-block; width: 400px; padding: 0 5px;"><input id="Slider1" type="slider" name="price" value="30000.5;60000" /></span>  in string
+    </div>
+    <script type="text/javascript" charset="utf-8">
+              jQuery("#Slider1").slider({ from: 1000, to: 100000, step: 500, smooth: true, round: 0, dimension: "&nbsp;$", skin: "plastic" });
+            </script>
+
+    <div class="layout-slider-settings">
+        <pre>{
+          from: 5,
+          to: 50,
+          step: 2.5,
+          round: 1,
+          format: { format: '##.0', locale: 'de' },
+          dimension: '&amp;nbsp;€'
+        }</pre>
+    </div>
+    <div class="layout-slider">
+        <input id="SliderSingle" type="slider" name="price" value="20" />
+    </div>
+    <script type="text/javascript" charset="utf-8">
+              jQuery("#SliderSingle").slider({ from: 5, to: 50, step: 2.5, round: 1, format: { format: '##.0', locale: 'de' }, dimension: '&nbsp;€', skin: "round" });
+            </script>
+
+    <div class="layout-slider-settings">
+        <pre>{
+          from: 5000,
+          to: 150000,
+          heterogeneity: ['50/50000'],
+          step: 1000,
+          dimension: '&amp;nbsp;$'
+        }</pre>
+    </div>
+    <div class="layout-slider">
+        <input id="Slider2" type="slider" name="price" value="5000;50000" />
+    </div>
+    <script type="text/javascript" charset="utf-8">
+              jQuery("#Slider2").slider({ from: 5000, to: 150000, heterogeneity: ['50/50000'], step: 1000, dimension: '&nbsp;$' });
+            </script>
+
+    <div class="layout-slider-settings">
+        <pre>{
+          from: 0,
+          to: 500,
+          heterogeneity: ['50/100', '75/250'],
+          scale: [0, '|', 50, '|' , '100', '|', 250, '|', 500],
+          limits: false,
+          step: 1,
+          dimension: '&amp;nbsp;m&lt;small&gt;2&lt;/small&gt;'
+        }</pre>
+    </div>
+    <div class="layout-slider">
+        <input id="Slider3" type="slider" name="area" value="25;75" />
+    </div>
+    <script type="text/javascript" charset="utf-8">
+              jQuery("#Slider3").slider({ from: 0, to: 500, heterogeneity: ['50/100', '75/250'], scale: [0, '|', 50, '|', '100', '|', 250, '|', 500], limits: false, step: 1, dimension: '&nbsp;m<small>2</small>', skin: "round_plastic" });
+            </script>
+
+    <div class="layout-slider-settings">
+        <pre>{
+          from: 1,
+          to: 30,
+          heterogeneity: ['50/5', '75/15'],
+          scale: [1, '|', 3, '|', '5', '|', 15, '|', 30],
+          limits: false,
+          step: 1,
+          dimension: '',
+          skin: "blue"
+        }</pre>
+    </div>
+    <div class="layout-slider">
+        <input id="Slider4" type="slider" name="area" value="2;10" />
+    </div>
+    <script type="text/javascript" charset="utf-8">
+              jQuery("#Slider4").slider({ from: 1, to: 30, heterogeneity: ['50/5', '75/15'], scale: [1, '|', 3, '|', '5', '|', 15, '|', 30], limits: false, step: 1, dimension: '', skin: "blue", callback: function( value ){ console.dir( this ); } });
+            </script>
+
+
+    <div class="layout-slider-settings">
+        <pre>{
+          from: 480,
+          to: 1020,
+          step: 15,
+          dimension: '',
+          scale: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+          limits: false,
+          calculate: function( value ){
+            var hours = Math.floor( value / 60 );
+            var mins = ( value - hours*60 );
+            return (hours &lt; 10 ? "0"+hours : hours) + ":" + ( mins == 0 ? "00" : mins );
+          },
+          onstatechange: function( value ){
+            console.dir( this );
+          }
+        }</pre>
+    </div>
+    <div class="layout-slider">
+        <input id="Slider5" type="slider" name="area" value="600;720" />
+    </div>
+    <script type="text/javascript" charset="utf-8">
+
+              jQuery("#Slider5").slider({ from: 480, to: 1020, step: 15, dimension: '', scale: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'], limits: false, calculate: function( value ){
+                var hours = Math.floor( value / 60 );
+                var mins = ( value - hours*60 );
+                return (hours < 10 ? "0"+hours : hours) + ":" + ( mins == 0 ? "00" : mins );
+              }})
+
+            </script> -->
+    
+
+    <!--<p>Year</p>
+        <div class="layout-slider">
+            <input id="Slider6" type="slider" name="area" value="2014" />
+        </div>
+        <script type="text/javascript" charset="utf-8">
+
+            jQuery("#Slider6").slider({
+                from: 2011, to: 2020, step: 1, dimension: '',
+                scale: ['2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'],
+                limits: false, calculate: function (value) {
+                    // var hours = Math.floor( value / 60 );
+                    // var mins = ( value - hours*60 );
+                    // return (hours < 10 ? "0"+hours : hours) + ":" + ( mins == 0 ? "00" : mins );
+                },
+                onstatechange: function (value) {
+                    setTimeout(function () {
+                        console.dir(value);
+                    }, 2000)
+                }
+
+            })
+
+        </script>-->
+
+        <p>Month</p>
+        <div class="layout-slider">
+            <input id="Slider7" type="slider" name="area" value="3" />
+
+
+
+        </div>
+        <button type="button" id="btnMonth">Get Month</button>
+        <script type="text/javascript" charset="utf-8">
+
+            getMonthName = function (v) {
+                var n = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                return n[v - 1]
+            }
+
+            var monthName = "";
+
+
+            jQuery("#Slider7").slider({
+                from: 1, to: 12, step: 1, smooth: false, dimension: '',
+                scale: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                limits: false, calculate: function (value) {
+                    // var hours = Math.floor( value / 60 );
+                    // var mins = ( value - hours*60 );
+                    // return (hours < 10 ? "0"+hours : hours) + ":" + ( mins == 0 ? "00" : mins );
+                },
+                onstatechange: function (value) {
+                    // setTimeout(function() {
+                    //   console.dir( value );
+                    // }, 3000)
+                    monthName = getMonthName(value);
+                }
+            })
+            //$(".layout-slider").click(function (e) {
+            //    // if (timeDiff > 500) return; // drag
+            //    // click event,  jeremypele's method go here.
+                
+            //});
+
+            $(".layout-slider").mouseup(function (e) {
+                debugger;
+                var slide_settings = $("#Slider7").slider().settings;
+                var width=$(this).width();
+                var length=slide_settings.scale.length;
+                var steps = Math.round(width  / length);
+                var clickedOn=Math.round(e.clientX / steps);
+                var multiplyWith=slide_settings.step;
+                var changedTo=(clickedOn *multiplyWith );
+                var step_to_chose =  changedTo -1 ;
+
+                //var steps = $(this).width() / slide_settings.scale.length;
+                //var step_to_chose = slide_settings.from + (Math.round(e.offsetX / steps) * slide_settings.step);
+                $("#Slider7").slider("value", step_to_chose);
+            });
+            $("#btnMonth").click(function () {
+                alert(monthName);
+
+            });
+        </script>
+
+
+        <!--<p>Day</p>
+        <div class="layout-slider">
+            <input id="Slider8" type="slider" name="area" value="8" />
+        </div>
+        <button type="button" id="btnDate">Get Date</button>
+        <script type="text/javascript" charset="utf-8">
+
+            var date = new Date();
+            var month = date.getMonth() + 1;
+            var year = date.getFullYear();
+            function daysInMonth(month, year) {
+                return new Date(year, month, 0).getDate();
+            }
+
+            // var lowEnd=1;
+            // var highEnd=daysInMonth(2, 2020);
+
+            var lowEnd = 1;
+            var highEnd = 20;
+            var list = [];
+            for (var i = lowEnd; i <= highEnd; i++) {
+
+                list.push(i.toString());
+            }
+
+            var selectedDate = 0;
+
+
+            var timeout = true;
+            //var sliderWidth=(highEnd*10)+'px';
+            jQuery("#Slider8").slider({
+                from: lowEnd, to: highEnd, step: 1, dimension: '',
+                scale: list,
+                //size: [500],
+                limits: false, calculate: function (value) {
+                    // var hours = Math.floor( value / 60 );
+                    // var mins = ( value - hours*60 );
+                    // return (hours < 10 ? "0"+hours : hours) + ":" + ( mins == 0 ? "00" : mins );
+                },
+                // onstatechange: function( value ){
+                // setTimeout(function() {
+
+                //   console.dir( value );
+                // }, 3000)}
+
+
+                onstatechange: function (value) {
+                    // timeout = false;
+                    //       setTimeout(function(){
+                    //           timeout = true;
+                    //           if(timeout){
+                    //             console.dir(value);
+                    //             selectedDate=value;
+                    //           }
+                    //       }, 5000);
+                    selectedDate = value;
+                }
+            })
+            // var timeDiff = 0;
+            //     $('.layout-slider').mousedown(function() {
+            //         timeDiff = +new Date();
+            //     }).mouseup(function(){
+            //         timeDiff = +new Date() - timeDiff;
+            //     });
+
+            //     $(".layout-slider").click(function(e){
+            //         // if (timeDiff > 500) return; // drag
+            //         // click event,  jeremypele's method go here.
+
+            //==============Jeremypele's Method====================
+            //$(".layout-slider").mouseup(function(e){
+            //    var slide_settings = $("#myslider").slider().settings ;
+            //    var steps = $(this).width() / slide_settings.scale.length;
+            //    var step_to_chose = slide_settings.from + (Math.round(e.offsetX / steps) * slide_settings.step) ;
+            //    $("#SliderClothes").slider("value",step_to_chose);
+            //});
+            //==============End====================
+
+            $(".layout-slider").mouseup(function (e) {
+                debugger;
+                var slide_settings = $("#Slider8").slider().settings;
+                //var width = $(this).width();
+                //var slider = $(this);
+                //var length = slide_settings.scale.length;
+                //var steps = Math.round(width / length);
+                //var clickedOn_1 = Math.round(e.offsetX / steps);
+                //var clickedOn = Math.round(e.clientX / steps);
+                //var multiplyWith = slide_settings.step;
+                //var changedTo = (clickedOn * multiplyWith);
+                //var step_to_chose = changedTo - 2;
+
+                var steps = $(this).width() / slide_settings.scale.length;
+                var step_to_chose = slide_settings.from + (Math.round(e.offsetX / steps) * slide_settings.step);
+
+                $("#Slider8").slider("value", step_to_chose);
+            });
+            //     });
+
+
+            $("#btnDate").click(function () {
+                alert(selectedDate.toString());
+            });
+        </script>-->
+    </div>
+
+
+</body>
+</html>

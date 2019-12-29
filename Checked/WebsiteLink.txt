@@ -1,0 +1,7 @@
+https://javascript.info/coordinates
+
+https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-element/11396681#11396681
+
+https://stackoverflow.com/questions/17130940/retrieve-the-same-offsetx-on-touch-like-mouse-event
+
+https://stackoverflow.com/questions/17261985/initialise-egorkhmelev-jslider-programmatically
