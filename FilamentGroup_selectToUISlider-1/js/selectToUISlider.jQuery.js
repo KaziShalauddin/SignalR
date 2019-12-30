@@ -15,7 +15,7 @@
  */
 
 
-jQuery.fn.customSlider = function(settings){
+jQuery.fn.selectToUISlider = function(settings){
 	var selects = jQuery(this);
 	
 	//accessible slider options
@@ -38,8 +38,7 @@ jQuery.fn.customSlider = function(settings){
 	})();
 	
 	//array of all option elements in select element (ignores optgroups)
-    var selectOptions = (function () {
-        debugger;
+	var selectOptions = (function(){
 		var opts = [];
 		selects.eq(0).find('option').each(function(){
 			opts.push({
@@ -174,8 +173,7 @@ jQuery.fn.customSlider = function(settings){
 		jQuery(selectOptions).each(function(i){
 			var style = (i == selectOptions.length-1 || i == 0) ? 'style="display: none;"' : '' ;
 			var labelText = (options.labelSrc == 'text') ? this.text : this.value;
-            //scale.append('<li style="left:' + leftVal(i) +'"><span class="ui-slider-label">'+ labelText +'</span><span class="ui-slider-tic ui-widget-content"'+ style +'></span></li>');
-            scale.append('<li style="left:' + leftVal(i) + '"><span class="ui-slider-label"><span style="margin-left: 50%;">|<br></span>'+ labelText +'</span><span class="ui-slider-tic ui-widget-content"'+ style +'></span></li>');
+			scale.append('<li style="left:'+ leftVal(i) +'"><span class="ui-slider-label">'+ labelText +'</span><span class="ui-slider-tic ui-widget-content"'+ style +'></span></li>');
 		});
 	}
 	

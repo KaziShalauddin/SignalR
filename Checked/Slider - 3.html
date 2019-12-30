@@ -1,4 +1,4 @@
-<html><head>
+﻿<html><head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Slider - 3</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -23,11 +23,18 @@
     </style>
   <style>
     #slider2{width: 50%;}
+    #slider{width: 50%;}
     .steps-2 {
     border: 1px solid transparent; /*follows #slider2 style for sizing purposes */
     width: 50%; 
     position: relative; 
     height: 30px;
+    }
+    .steps-3 {
+        border: 1px solid transparent; /*follows #slider2 style for sizing purposes */
+        width: 50%; 
+        position: relative; 
+        height: 30px;
     }
     .tick { 
         border: 1px solid transparent; /*follows slide handle style for sizing purposes*/
@@ -46,17 +53,18 @@
       $(window).load(function(){
         
       $(function() {
-          $( "#slider" ).slider({
-              value:100,
-              min: 0,
-              max: 500,
-              step: 100,
-              slide: function( event, ui ) {
-                  $( "#amount" ).val( "$" + ui.value );
-              }
-          });
-          $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
-  
+          
+        // $( "#slider" ).slider({
+        //       value:100,
+        //       min: 0,
+        //       max: 500,
+        //       step: 100,
+        //       slide: function( event, ui ) {
+        //           $( "#amount" ).val( "$" + ui.value );
+        //       }
+        //   });
+        //   $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+
           $( "#slider2" ).slider({
               value:100,
               min: 0,
@@ -74,6 +82,9 @@
   
     //]]></script>
   
+  <script>
+  
+  </script>
   </head>
   <body style="background: #EEEEEE; color: #333333; font-size: 11px;">
       
@@ -90,7 +101,7 @@
               <div id="slider2" style="width:50%;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
   
               <div class="steps-2">
-                  <span class="tick">|<br>$0</span>
+                  <span class="tick"style="left: 0%;">|<br>$0</span>
                   <span class="tick" style="left: 20%;">|<br>$100</span>
                   <span class="tick" style="left: 40%;">|<br>$200</span>
                   <span class="tick" style="left: 60%;">|<br>$300</span>
@@ -103,19 +114,104 @@
           </div>
   
   
-    
-    <!-- <script>
-      // tell the embed parent frame the height of the content
-      if (window.parent && window.parent.parent){
-        window.parent.parent.postMessage(["resultsFrame", {
-          height: document.body.getBoundingClientRect().height,
-          slug: "7D9Uu"
-        }], "*")
-      }
-  
-      // always overwrite window.name, in case users try to set it manually
-      window.name = "result"
-    </script> -->
+          <div style="width:100%;display:block;margin:20%;">
+            <p>
+                <label for="amount">Donation amount ($100 increments):</label>
+                <input type="text" id="amount" style="border: 0 none;border-radius: 4px 4px 4px 4px;color: #F6931F;padding-left: 5px;width: 40px;">
+            </p>
+            <div id="slider" style="width:50%;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
+
+            <div class="steps-3">
+                <!--<span class="tick">|<br>$0</span>
+                <span class="tick" style="left: 20%;">|<br>$100</span>
+                <span class="tick" style="left: 40%;">|<br>$200</span>
+                <span class="tick" style="left: 60%;">|<br>$300</span>
+                <span class="tick" style="left: 80%;">|<br>$400</span>
+                <span class="tick" style="left: 100%;">|<br>$500</span>-->
+                
+            </div>
+
+        </div>
+    <script>
+      
+      // var date = new Date();
+      //       var month = date.getMonth() + 1;
+      //       var year = date.getFullYear();
+      //       function daysInMonth(month, year) {
+      //           return new Date(year, month, 0).getDate();
+      //       }
+
+           
+            var label='';
+            var lowEnd = 1;
+            var highEnd = 20;
+            var list = [];
+            var sliderLegend='';
+            var duration=highEnd-lowEnd;
+      var percentage ='' ;
+
+            for (var i = 0; i <= highEnd; i++) {
+              sliderLegend='<span class="tick" style="left: '+percentage+';">|<br>'+label+'</span>';
+                list.push(sliderLegend);
+            }
+     // var selects = jQuery(this);
+      var selects = ['Sat','Sun','Mon'];
+      //array of all option elements in select element (ignores optgroups)
+      var selectOptions = (function(){
+          var opts = [];
+          $.each(selects, function (key, value){
+              opts.push({
+                  value: key,
+                  text: value
+              });
+          });
+          return opts;
+        })();
+        debugger;
+         function populateComboWithoutDefault(container, data) {
+      
+          var cbmOptions = "";
+             $.each(data, function (i) {
+                 debugger;
+                var style = (i == data.length-1 || i == 0) ? 'style="display: none;"' : '' ;
+                 var labelText = this.text;
+                 var leftPercent = leftVal(i);
+                 cbmOptions += '<span class="tick" style="left:' + leftPercent + ';">|<br>' + labelText + '</span>';
+          });
+             function leftVal(i){
+                 return (i/(selectOptions.length-1) * 100).toFixed(2)  +'%';
+		
+             }
+          $('.' + container).html(cbmOptions);
+             debugger;
+         };
+
+        populateComboWithoutDefault('steps-3', selectOptions);
+      //create slider component div
+      //  var sliderComponent = jQuery('<div></div>');
+      //var scale = sliderComponent.append('<ol class="ui-slider-scale ui-helper-reset" role="presentation"></ol>').find('.ui-slider-scale:eq(0)');
+ //     jQuery(selectOptions).each(function(i){
+ //         var style = (i == selectOptions.length-1 || i == 0) ? 'style="display: none;"' : '' ;
+ //         var labelText = (options.labelSrc == 'text') ? this.text : this.value;
+ //         scale.append('<li style="left:'+ leftVal(i) +'"><span class="ui-slider-label">'+ labelText +'</span><span class="ui-slider-tic ui-widget-content"'+ style +'></span></li>');
+ //     });
+ //       function leftVal(i){
+	//	return (i/(selectOptions.length-1) * 100).toFixed(2)  +'%';
+		
+	//}
+
+    $( "#slider" ).slider({
+              value:1,
+              min: 0,
+              max: 2,
+              step: 1,
+              slide: function( event, ui ) {
+                  $( "#amount" ).val( "$" + ui.value );
+              }
+          });
+          $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+   
+   </script>
   
   
   </body></html>
