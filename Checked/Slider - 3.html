@@ -337,7 +337,9 @@
             return n[v - 1];
         }
         var now = new Date();
-        for (var i = -9; i <= 2; i++) {
+        var nextMonths=3;
+        var previousMonths=8;// (9 +2)=11 => highest index of month array 
+        for (var i = previousMonths * -1; i <= nextMonths; i++) {
            
             var future = new Date(now.getFullYear(), now.getMonth() + i, 1);
             var monthInt = future.getMonth()+1;
