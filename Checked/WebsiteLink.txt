@@ -5,3 +5,7 @@ https://stackoverflow.com/questions/442404/retrieve-the-position-x-y-of-an-html-
 https://stackoverflow.com/questions/17130940/retrieve-the-same-offsetx-on-touch-like-mouse-event
 
 https://stackoverflow.com/questions/17261985/initialise-egorkhmelev-jslider-programmatically
+
+
+================ How to get Past 12months with year from current date ==========================
+https://stackoverflow.com/questions/48299139/how-to-get-past-12months-with-year-from-current-date
