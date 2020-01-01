@@ -184,13 +184,12 @@ jQuery.fn.customSlider = function(settings){
 		
 	}
 	
-
+    debugger;
 	
 	
 	//show and hide labels depending on labels pref
 	//show the last one if there are more than 1 specified
 	if(options.labels > 1) sliderComponent.find('.ui-slider-scale li:last span.ui-slider-label, .ui-slider-scale dd:last span.ui-slider-label').addClass('ui-slider-label-show');
-
 	//set increment
 	var increm = Math.max(1, Math.round(selectOptions.length / options.labels));
 	//show em based on inc
@@ -199,6 +198,7 @@ jQuery.fn.customSlider = function(settings){
 			sliderComponent.find('.ui-slider-scale li:eq('+ j +') span.ui-slider-label, .ui-slider-scale dd:eq('+ j +') span.ui-slider-label').addClass('ui-slider-label-show');
 		}
 	}
+  
 
 	//style the dt's
 	sliderComponent.find('.ui-slider-scale dt').each(function(i){
@@ -214,7 +214,8 @@ jQuery.fn.customSlider = function(settings){
 	.slider(options.sliderOptions)
 	.attr('role','application')
 	.find('.ui-slider-label')
-	.each(function(){
+        .each(function () {
+	        debugger;
 		jQuery(this).css('marginLeft', -jQuery(this).width()/2);
 	});
 	

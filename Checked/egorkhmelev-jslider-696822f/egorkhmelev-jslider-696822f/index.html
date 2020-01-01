@@ -199,16 +199,21 @@
 
             getMonthName = function (v) {
                 var n = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                return n[v - 1]
+                return n[v - 1];
             }
 
             var monthName = "";
 
 
             jQuery("#Slider7").slider({
-                from: 1, to: 12, step: 1, smooth: false, dimension: '',
+                from: 1,
+                to: 12,
+                step: 1,
+                smooth: false,
+                dimension: '',
                 scale: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                limits: false, calculate: function (value) {
+                limits: false,
+                calculate: function (value) {
                     // var hours = Math.floor( value / 60 );
                     // var mins = ( value - hours*60 );
                     // return (hours < 10 ? "0"+hours : hours) + ":" + ( mins == 0 ? "00" : mins );
@@ -219,7 +224,7 @@
                     // }, 3000)
                     monthName = getMonthName(value);
                 }
-            })
+            });
             //$(".layout-slider").click(function (e) {
             //    // if (timeDiff > 500) return; // drag
             //    // click event,  jeremypele's method go here.
@@ -248,9 +253,11 @@
         </script>
 
 
-        <!--<p>Day</p>
+        <p>Day</p>
         <div class="layout-slider">
+            <input id="slider8Txt" type="text" name="area" value="8" />
             <input id="Slider8" type="slider" name="area" value="8" />
+
         </div>
         <button type="button" id="btnDate">Get Date</button>
         <script type="text/javascript" charset="utf-8">
@@ -262,11 +269,11 @@
                 return new Date(year, month, 0).getDate();
             }
 
-            // var lowEnd=1;
-            // var highEnd=daysInMonth(2, 2020);
+             var lowEnd=1;
+            var highEnd = daysInMonth(month, year);
 
-            var lowEnd = 1;
-            var highEnd = 20;
+            //var lowEnd = 1;
+            //var highEnd = 20;
             var list = [];
             for (var i = lowEnd; i <= highEnd; i++) {
 
@@ -304,6 +311,7 @@
                     //           }
                     //       }, 5000);
                     selectedDate = value;
+                    $("#slider8Txt").val(value.toString());
                 }
             })
             // var timeDiff = 0;
@@ -326,31 +334,31 @@
             //});
             //==============End====================
 
-            $(".layout-slider").mouseup(function (e) {
-                debugger;
-                var slide_settings = $("#Slider8").slider().settings;
-                //var width = $(this).width();
-                //var slider = $(this);
-                //var length = slide_settings.scale.length;
-                //var steps = Math.round(width / length);
-                //var clickedOn_1 = Math.round(e.offsetX / steps);
-                //var clickedOn = Math.round(e.clientX / steps);
-                //var multiplyWith = slide_settings.step;
-                //var changedTo = (clickedOn * multiplyWith);
-                //var step_to_chose = changedTo - 2;
+            //$(".layout-slider").mouseup(function (e) {
+            //    debugger;
+            //    var slide_settings = $("#Slider8").slider().settings;
+            //    //var width = $(this).width();
+            //    //var slider = $(this);
+            //    //var length = slide_settings.scale.length;
+            //    //var steps = Math.round(width / length);
+            //    //var clickedOn_1 = Math.round(e.offsetX / steps);
+            //    //var clickedOn = Math.round(e.clientX / steps);
+            //    //var multiplyWith = slide_settings.step;
+            //    //var changedTo = (clickedOn * multiplyWith);
+            //    //var step_to_chose = changedTo - 2;
 
-                var steps = $(this).width() / slide_settings.scale.length;
-                var step_to_chose = slide_settings.from + (Math.round(e.offsetX / steps) * slide_settings.step);
+            //    var steps = $(this).width() / slide_settings.scale.length;
+            //    var step_to_chose = slide_settings.from + (Math.round(e.offsetX / steps) * slide_settings.step);
 
-                $("#Slider8").slider("value", step_to_chose);
-            });
+            //    $("#Slider8").slider("value", step_to_chose);
+            //});
             //     });
 
 
             $("#btnDate").click(function () {
                 alert(selectedDate.toString());
             });
-        </script>-->
+        </script>
     </div>
 
 

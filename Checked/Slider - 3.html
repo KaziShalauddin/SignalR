@@ -65,7 +65,20 @@
             position: relative;
             height: 30px;
         }
+        /*  Date  */
+        #sliderDate {
+            width: 50%;
+        }
 
+        .steps-Date {
+            border: 1px solid transparent; /*follows #slider2 style for sizing purposes */
+            width: 50%;
+            position: relative;
+            height: 30px;
+        }
+        .label-show {
+            display: block !important;
+        }
         .tick {
             border: 1px solid transparent; /*follows slide handle style for sizing purposes*/
             position: absolute;
@@ -162,34 +175,53 @@
     </div>
 
 
-<div style="width: 100%; display: block; margin-left: 20%;">
-    <h3>================== Year =====================</h3>
-    <p>
-        <label for="amountYear">Selected Year:</label>
-        <input type="text" id="amountYear" style="border: 0 none; border-radius: 4px 4px 4px 4px; color: #F6931F; padding-left: 5px; width: 40px;">
-    </p>
-    <div id="sliderYear" style="width: 50%;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
+    <div style="width: 100%; display: block; margin-left: 20%;">
+        <h3>================== Year =====================</h3>
+        <p>
+            <label for="amountYear">Selected Year:</label>
+            <input type="text" id="amountYear" style="border: 0 none; border-radius: 4px 4px 4px 4px; color: #F6931F; padding-left: 5px; width: 40px;">
+        </p>
+        <div id="sliderYear" style="width: 50%;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
 
-    <div class="steps-Year">
+        <div class="steps-Year">
 
+
+        </div>
+
+    </div>
+    <div style="width: 100%; display: block; margin-left: 20%;">
+        <h3>================== Previous month with current month =====================</h3>
+        <p>
+            <label for="amountMonth">Selected Month:</label>
+            <input type="text" id="amountMonth" style="border: 0 none; border-radius: 4px 4px 4px 4px; color: #F6931F; padding-left: 5px; width: 100px;">
+            <label for="monthTxt">Month Number:</label>
+            <input type="text" id="monthTxt" style="border: 0 none; border-radius: 4px 4px 4px 4px; color: #F6931F; padding-left: 5px; width: 100px;">
+            <label for="yearTxt">Year:</label>
+            <input type="text" id="yearTxt" style="border: 0 none; border-radius: 4px 4px 4px 4px; color: #F6931F; padding-left: 5px; width: 100px;">
+        </p>
+        <div id="sliderMonth" style="width: 50%;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
+
+        <div class="steps-Month">
+
+
+        </div>
 
     </div>
 
-</div>
-<div style="width: 100%; display: block; margin-left: 20%;">
-    <h3>================== Previous month with current month =====================</h3>
-    <p>
-        <label for="amountMonth">Selected Month:</label>
-        <input type="text" id="amountMonth" style="border: 0 none; border-radius: 4px 4px 4px 4px; color: #F6931F; padding-left: 5px; width: 100px;">
-    </p>
-    <div id="sliderMonth" style="width: 50%;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
+    <div style="width: 100%; display: block; margin-left: 20%;">
+        <h3>================== Current month Date =====================</h3>
+        <p>
+            <label for="selectedDate">Selected Date:</label>
+            <input type="text" id="selectedDate" style="border: 0 none; border-radius: 4px 4px 4px 4px; color: #F6931F; padding-left: 5px; width: 100px;">
+        </p>
+        <div id="sliderDate" style="width: 50%;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
 
-    <div class="steps-Month">
+        <div class="steps-Date">
 
+
+        </div>
 
     </div>
-
-</div>
     <script>
 
         // var date = new Date();
@@ -215,9 +247,9 @@
 
         var selects = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
         //array of all option elements in select element (ignores optgroups)
-        function selectOptions (array) {
+        function selectOptions(array) {
             var opts = [];
-            $(array).each( function (key, value) {
+            $(array).each(function (key, value) {
                 opts.push({
                     value: key,
                     text: value
@@ -244,7 +276,7 @@
         //merge methods
         function generateSlider(container, array) {
             var data = [];
-            $(array).each( function (key, value) {
+            $(array).each(function (key, value) {
                 data.push({
                     value: key,
                     text: value
@@ -264,7 +296,7 @@
             $('.' + container).html(cbmOptions);
         };
         var selectList = selectOptions(selects);
-       // debugger;
+        // debugger;
         //generateSlider('steps-3', selectList);
         //generateSlider('steps-3', selects);
         //create slider component div
@@ -296,12 +328,12 @@
         generateSlider('steps-3', selects);
 
         //============= Year ================
-       
+
         var date = new Date();
         var year = date.getFullYear();
         var minLimitInt = year - 2;
         var maxLimitInt = year + 3;
-       
+
         var list = [];
         for (var i = minLimitInt; i <= maxLimitInt; i++) {
             list.push(i);
@@ -324,45 +356,179 @@
         $("#amountYear").val(sliderValue);
 
         //============= Month ================
-       
+
         var date = new Date();
         //var month = date.getMonth()+2;
-       
+
         var minLimitInt = 1;
         var maxLimitInt = 12;
-        var takenMonth = 0;
         var monthList = [];
         getMonthName = function (v) {
             var n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             return n[v - 1];
         }
+        getMonthNumber = function (str) {
+            var n = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            if (typeof str == "number") {
+                return n[str - 1];
+            } else {
+                return n.indexOf(str) + 1;
+            }
+        }
         var now = new Date();
-        var nextMonths=3;
-        var previousMonths=8;// (9 +2)=11 => highest index of month array 
+        var nextMonths = 2;
+        var previousMonths = 9;// (9 +2)=11 => highest index of month array
         for (var i = previousMonths * -1; i <= nextMonths; i++) {
-           
+
             var future = new Date(now.getFullYear(), now.getMonth() + i, 1);
-            var monthInt = future.getMonth()+1;
+            var monthInt = future.getMonth() + 1;
             var month = getMonthName(monthInt);
             var year = future.getFullYear();
-            monthList.push(month+' '+year);
+            monthList.push(month + ' ' + year);
         }
-        var currentMonth = monthList[ now.getMonth() + 1];
+
+        getCurrentMonthIndex = function () {
+            
+            var currentMonth = getMonthNumber(now.getMonth() + 1) + ' ' + now.getFullYear();
+            var currentMonthIndex = monthList.indexOf(currentMonth) + 1;
+            return currentMonthIndex;
+        }
+        var currentMonthValue = getCurrentMonthIndex();
         
-        debugger;
         $("#sliderMonth").slider({
-            //value: currentMonth,
+            value: currentMonthValue,
             min: minLimitInt,
             max: maxLimitInt,
             step: 1,
             slide: function (event, ui) {
-                 debugger;
+                
                 $("#amountMonth").val(monthList[ui.value - 1]);
+                var monthStr = monthList[ui.value - 1];
+                $("#monthTxt").val(getMonthNumber(monthStr.substr(0, 3)));// first 3 character
+                $("#yearTxt").val(monthStr.substr(monthStr.length - 4));// last 4 character
+
             }
         });
         generateSlider('steps-Month', monthList);
         var sliderValue = $("#sliderMonth").slider("value");
         $("#amountMonth").val(monthList[sliderValue - 1]);
+        var monthStr = monthList[sliderValue - 1];
+        $("#monthTxt").val(getMonthNumber(monthStr.substr(0, 3)));// first 3 character
+        $("#yearTxt").val(monthStr.substr(monthStr.length - 4));// last 4 character
+
+
+        //============= Date ================
+
+        //Custom Steps View
+        function generateSlider2(container, array, labels) {
+            var data = [];
+            $(array).each(function (key, value) {
+                data.push({
+                    value: key,
+                    text: value
+                });
+            });
+            //var length = data.length;
+            //for (var i = 0; i <= length; i++) {
+            //    var removeIndex = i * viewSteps;
+            //    delete data[removeIndex];
+            //} 
+
+            var sliderComponent = $('<div></div>');
+            var cbmOptions = sliderComponent.append('<ol class="ui-slider-scale ui-helper-reset"></ol>').find('.ui-slider-scale:eq(0)');
+            $.each(data, function (i) {
+                var style = (i == data.length - 1 || i == 0) ? 'style="display: none;"' : '';
+                var labelText = this.text;
+                var leftPercent = leftVal(i);
+               // cbmOptions.append('<li style="left:' + leftPercent + '"><span  class="tick" >|<br>' + labelText + '</span><span ' + style +'></span></li>' ) ;
+                cbmOptions.append('<li style="left:' + leftPercent + '"><span class="ui-slider-label"><span style="margin-left: 50%;">|<br></span>' + labelText + '</span><span class="ui-slider-tic ui-widget-content"' + style + '></span></li>') ;
+            });
+            function leftVal(i) {
+                return (i / (data.length - 1) * 100).toFixed(2) + '%';
+
+            }
+            debugger;
+            ////show and hide labels depending on labels pref
+            ////show the last one if there are more than 1 specified
+            //if (labels > 1) sliderComponent.find('.sliderSpan span:last').addClass('label-show');
+            //if (labels > 1) 
+            //{
+            //    if (sliderComponent.find('.sliderSpan span:last .tick')) {
+            //        alert('Found');
+            //        sliderComponent.find('.sliderSpan span:last .tick').addClass('label-show');
+            //        debugger;
+            //    }
+                
+            //};
+
+            ////set increment
+            //var increm = Math.max(1, Math.round(data.length / labels));
+            ////show em based on inc
+            //for (var j = 0; j < data.length; j+=increm){
+            //    if ((data.length - j) > increm){//don't show if it's too close to the end label
+            //        sliderComponent.find('.sliderSpan span:eq(' + j +')').addClass('label-show');
+            //    }
+            //}
+
+            //show and hide labels depending on labels pref
+            //show the last one if there are more than 1 specified
+            if(options.labels > 1) sliderComponent.find('.ui-slider-scale li:last span.ui-slider-label').addClass('label-show');
+            //set increment
+            var increm = Math.max(1, Math.round(selectOptions.length / options.labels));
+            //show em based on inc
+            for(var j=0; j<selectOptions.length; j+=increm){
+                if((selectOptions.length - j) > increm){//don't show if it's too close to the end label
+                    sliderComponent.find('.ui-slider-scale li:eq('+ j +') span.ui-slider-label').addClass('label-show');
+                }
+            }
+
+            //inject and return 
+            sliderComponent
+                .insertAfter($(this).eq(this.length-1))
+                .slider(options.sliderOptions)
+                //.attr('role','application')
+                .find('.ui-slider-label')
+                .each(function () {
+                    debugger;
+                    $(this).css('marginLeft', -$(this).width()/2);
+                });
+            $('.' + container).html(sliderComponent);
+        };
+        var date = new Date();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        function daysInMonth(month, year) {
+            return new Date(year, month, 0).getDate();
+        }
+
+        //var lowEnd=1;
+        //var highEnd = daysInMonth(month, year);
+        //var date = new Date();
+        //var year = date.getFullYear();
+
+        var minLimitInt =1;
+        var maxLimitInt = daysInMonth(month, year);;
+
+        var list = [];
+        for (var i = minLimitInt; i <= maxLimitInt; i++) {
+            list.push(i);
+        }
+
+        //debugger;
+        $("#sliderDate").slider({
+            value: date.getDate(),
+            min: minLimitInt,
+            max: maxLimitInt,
+            step: 1,
+            slide: function (event, ui) {
+                // debugger;
+                //$("#amount3").val("$" + ui.value);
+                $("#selectedDate").val(ui.value);
+            }
+        });
+        generateSlider2('steps-Date', list,4);
+        var sliderValue = $("#sliderDate").slider("value");
+        $("#selectedDate").val(sliderValue);
     </script>
 
 
