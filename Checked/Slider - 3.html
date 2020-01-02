@@ -32,7 +32,16 @@
             position: relative;
             height: 30px;
         }
+        #sliderRange {
+            width: 50%;
+        }
 
+        .steps-Range {
+            border: 1px solid transparent; /*follows #slider2 style for sizing purposes */
+            width: 50%;
+            position: relative;
+            height: 30px;
+        }
         #slider3 {
             width: 50%;
         }
@@ -69,7 +78,7 @@
         #sliderDate {
             width: 50%;
         }
-
+        
         .steps-Date {
             border: 1px solid transparent; /*follows #slider2 style for sizing purposes */
             width: 50%;
@@ -79,6 +88,7 @@
         .label-show {
             display: block !important;
         }
+      
         .tick {
             border: 1px solid transparent; /*follows slide handle style for sizing purposes*/
             position: absolute;
@@ -86,6 +96,20 @@
             margin-left: -.6em;
             text-align: center;
             left: 0;
+        }
+
+        /*Custom CSS*/
+        .slider-list ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            /*white-space: nowrap;*/
+        }
+         .slider-list li {
+            /*list-style: none;
+            margin: 0;
+            padding: 0;*/
+             display:inline
         }
     </style>
 
@@ -173,7 +197,22 @@
         </div>
 
     </div>
+<div style="width: 100%; display: block; margin-left: 20%;">
+    <h3>================== Range Slider =====================</h3>
+    <p>
+        <label for="rangeSlideFrom">From:</label>
+        <input type="text" id="rangeSlideFrom" style="border: 0 none; border-radius: 4px 4px 4px 4px; color: #F6931F; padding-left: 5px; width: 40px;">
+        <label for="rangeSlideTo">To:</label>
+        <input type="text" id="rangeSlideTo" style="border: 0 none; border-radius: 4px 4px 4px 4px; color: #F6931F; padding-left: 5px; width: 40px;">
+    </p>
+    <div id="sliderRange" style="width: 50%;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
 
+    <div class="steps-Range">
+
+
+    </div>
+
+</div>
 
     <div style="width: 100%; display: block; margin-left: 20%;">
         <h3>================== Year =====================</h3>
@@ -216,7 +255,7 @@
         </p>
         <div id="sliderDate" style="width: 50%;" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
 
-        <div class="steps-Date">
+        <div class="steps-Date" style="display: inline-table;">
 
 
         </div>
@@ -313,7 +352,8 @@
         //}
         var maxLimit = selects.length;
         $("#slider3").slider({
-            value: 1,
+            range:false,
+            value:1,
             min: 1,//min=1 static for string array
             max: maxLimit,
             step: 1,
@@ -326,6 +366,31 @@
         var sliderValue = $("#slider3").slider("value");
         $("#amount3").val(selects[sliderValue - 1]);
         generateSlider('steps-3', selects);
+
+        //============= Range Slide ================
+
+        var selectRange = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+       
+        var maxLimit = selectRange.length;
+        $("#sliderRange").slider({
+            range: true,
+            values: [2, 4],
+            min: 1,//min=1 static for string array
+            max: maxLimit,
+            step: 1,
+            slide: function (event, ui) {
+                // debugger;
+                //$("#amount3").val("$" + ui.value);
+               // $("#rangeSlideFrom").val(selectRange[ui.value - 1]);
+                //$("#rangeSlideTo").val(selectRange[ui.value - 1]);
+                $( "#rangeSlideFrom" ).val( ui.values[ 0 ] );
+                $( "#rangeSlideTo" ).val( ui.values[ 1 ] );
+            }
+        });
+        var sliderValue = $("#sliderRange").slider("values");
+        $("#rangeSlideFrom").val(selectRange[sliderValue[0] - 1]);
+        $("#rangeSlideTo").val(selectRange[sliderValue[1] - 1]);
+        generateSlider('steps-Range', selectRange);
 
         //============= Year ================
 
@@ -428,70 +493,77 @@
                     text: value
                 });
             });
-            //var length = data.length;
-            //for (var i = 0; i <= length; i++) {
-            //    var removeIndex = i * viewSteps;
-            //    delete data[removeIndex];
-            //} 
-
+           
             var sliderComponent = $('<div></div>');
-            var cbmOptions = sliderComponent.append('<ol class="ui-slider-scale ui-helper-reset"></ol>').find('.ui-slider-scale:eq(0)');
+            var cbmOptions = sliderComponent.append('<ol class="slider-list"></ol>').find('.slider-list:eq(0)');
             $.each(data, function (i) {
-                var style = (i == data.length - 1 || i == 0) ? 'style="display: none;"' : '';
+                var style = ( i>0 || i == data.length - 1) ? 'style="display:none;"' : '';
                 var labelText = this.text;
                 var leftPercent = leftVal(i);
-               // cbmOptions.append('<li style="left:' + leftPercent + '"><span  class="tick" >|<br>' + labelText + '</span><span ' + style +'></span></li>' ) ;
-                cbmOptions.append('<li style="left:' + leftPercent + '"><span class="ui-slider-label"><span style="margin-left: 50%;">|<br></span>' + labelText + '</span><span class="ui-slider-tic ui-widget-content"' + style + '></span></li>') ;
+                cbmOptions.append('<li  class="tick " style="left:' + leftPercent + '"><span class="changeStyle" ' + style +'>|<br>' + labelText + '</span></li>' ) ;
+                //cbmOptions.append('<li style="left:' + leftPercent + '"><span class="ui-slider-label"><span style="margin-left: 50%;">|<br></span>' + labelText + '</span><span class="ui-slider-tic ui-widget-content"' + style + '></span></li>') ;
             });
             function leftVal(i) {
                 return (i / (data.length - 1) * 100).toFixed(2) + '%';
 
             }
-            debugger;
-            ////show and hide labels depending on labels pref
-            ////show the last one if there are more than 1 specified
-            //if (labels > 1) sliderComponent.find('.sliderSpan span:last').addClass('label-show');
+            //debugger;
+           
+            if (labels > 1) sliderComponent.find('.slider-list span:last').addClass('label-show');
             //if (labels > 1) 
             //{
-            //    if (sliderComponent.find('.sliderSpan span:last .tick')) {
+            //    if (sliderComponent.find('.slider-list span:last .changeStyle')) {
             //        alert('Found');
-            //        sliderComponent.find('.sliderSpan span:last .tick').addClass('label-show');
-            //        debugger;
+            //        var text = sliderComponent.find('.slider-list span:last').text();
+            //         alert(text);
+            //        //sliderComponent.find('.slider-list span:last .changeStyle').addClass('label-show');
+            //        //debugger;
             //    }
                 
             //};
-
-            ////set increment
-            //var increm = Math.max(1, Math.round(data.length / labels));
-            ////show em based on inc
-            //for (var j = 0; j < data.length; j+=increm){
-            //    if ((data.length - j) > increm){//don't show if it's too close to the end label
-            //        sliderComponent.find('.sliderSpan span:eq(' + j +')').addClass('label-show');
-            //    }
-            //}
-
-            //show and hide labels depending on labels pref
-            //show the last one if there are more than 1 specified
-            if(options.labels > 1) sliderComponent.find('.ui-slider-scale li:last span.ui-slider-label').addClass('label-show');
+            var n1Arry = [];
+            var jArry = [];
             //set increment
-            var increm = Math.max(1, Math.round(selectOptions.length / options.labels));
+           // var increm = Math.max(1, Math.round(data.length / labels));
+            var increm =  labels;
+            //debugger;
             //show em based on inc
-            for(var j=0; j<selectOptions.length; j+=increm){
-                if((selectOptions.length - j) > increm){//don't show if it's too close to the end label
-                    sliderComponent.find('.ui-slider-scale li:eq('+ j +') span.ui-slider-label').addClass('label-show');
+            for (var j = 1; j < data.length; j += increm) {
+               // debugger;
+                var n1 = (data.length - j);
+                //if (n1> increm){//don't show if it's too close to the end label
+                if (j != 1) {
+                    j = j + 1;
+                    sliderComponent.find('.slider-list span:eq(' + j + ')').addClass('label-show');
                 }
-            }
+                else {
+                    j = j + increm;
+                    sliderComponent.find('.slider-list span:eq(' + j + ')').addClass('label-show');
 
-            //inject and return 
-            sliderComponent
-                .insertAfter($(this).eq(this.length-1))
-                .slider(options.sliderOptions)
-                //.attr('role','application')
-                .find('.ui-slider-label')
-                .each(function () {
-                    debugger;
-                    $(this).css('marginLeft', -$(this).width()/2);
-                });
+                }
+                //var n2 = (increm*2)+j;
+                ////    var textN1 = sliderComponent.find('.slider-list span:eq(' + n1 + ')').text();
+                //var textJ = sliderComponent.find('.slider-list span:eq(' + n2 + ')').text();
+                ////    n1Arry.push(textN1);
+                //    jArry.push(textJ);
+                ////    //alert('n1= '+n1+' & j= '+j );
+                ////}
+                //n1Arry.push(j);
+            }
+            //alert(n1Arry.join("\n"));
+            //alert(jArry.join("\n"));
+            debugger;
+
+            ////inject and return 
+            //sliderComponent
+            //    .insertAfter($(this).eq(this.length-1))
+            //    .slider(options.sliderOptions)
+            //    //.attr('role','application')
+            //    .find('.ui-slider-label')
+            //    .each(function () {
+            //        debugger;
+            //        $(this).css('marginLeft', -$(this).width()/2);
+            //    });
             $('.' + container).html(sliderComponent);
         };
         var date = new Date();
@@ -507,7 +579,8 @@
         //var year = date.getFullYear();
 
         var minLimitInt =1;
-        var maxLimitInt = daysInMonth(month, year);;
+      var maxLimitInt = daysInMonth(month, year);
+        //var maxLimitInt = 20;
 
         var list = [];
         for (var i = minLimitInt; i <= maxLimitInt; i++) {
@@ -526,7 +599,7 @@
                 $("#selectedDate").val(ui.value);
             }
         });
-        generateSlider2('steps-Date', list,4);
+        generateSlider2('steps-Date', list, 3);
         var sliderValue = $("#sliderDate").slider("value");
         $("#selectedDate").val(sliderValue);
     </script>
